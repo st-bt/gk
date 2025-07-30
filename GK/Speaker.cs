@@ -30,10 +30,10 @@ namespace GK.Talks
 		public bool HasBlog { get; init; }
 		public string BlogURL { get; init; } = string.Empty;
 		public required WebBrowser Browser { get; init; }
-		public List<string> Certifications { get; init; } = new List<string>();
+		public string[] Certifications { get; init; } = Array.Empty<string>();
 		public string Employer { get; init; } = string.Empty;
 		public int RegistrationFee { get; private set; }
-		public List<Session> Sessions { get; init; } = new List<Session>();
+		public Session[] Sessions { get; init; } = Array.Empty<Session>();
 
         private void ApproveSessions()
         {

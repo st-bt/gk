@@ -19,7 +19,7 @@ namespace GK.Tests
                 Browser = browser,
                 Exp = fixture.Experience,
                 HasBlog = fixture.HasBlog,
-                Certifications = fixture.Certifications.ToList(),
+                Certifications = fixture.Certifications,
                 Employer = fixture.Employer,
                 Sessions = [ApprovableSession]
             };

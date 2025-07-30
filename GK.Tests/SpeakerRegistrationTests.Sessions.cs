@@ -16,7 +16,7 @@ namespace GK.Tests
                 FirstName = "firstName",
                 LastName = "lastName",
                 Email = "test@example.org",
-                Sessions = input.ToList(),
+                Sessions = input,
                 Certifications = [],
                 Browser = new WebBrowser(Name: WebBrowser.BrowserName.GoogleChrome, MajorVersion: 27)
             };
