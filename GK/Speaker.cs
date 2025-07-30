@@ -16,7 +16,7 @@ namespace GK.Talks
 		public string FirstName { get; init; } = string.Empty;
 		public string LastName { get; init; } = string.Empty;
 		public string Email { get; init; } = string.Empty;
-		public int Exp { get; init; }
+		public int YearsOfExperience { get; init; }
 		public bool HasBlog { get; init; }
 		public string BlogURL { get; init; } = string.Empty;
 		public required WebBrowser Browser { get; init; }
@@ -71,7 +71,7 @@ namespace GK.Talks
 
             //if we got this far, the speaker is approved
             //let's go ahead and register him/her now.
-            RegistrationFee = new RegistrationFeeCalculator().CalculateFee(Exp);
+            RegistrationFee = new RegistrationFeeCalculator().CalculateFee(YearsOfExperience);
 
             //Now, save the speaker and sessions to the db.
             var speakerId = repository.SaveSpeaker(this);

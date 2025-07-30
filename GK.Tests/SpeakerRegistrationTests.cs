@@ -18,7 +18,7 @@ namespace GK.Tests
             LastName = "lastName",
             Email = "test@example.org",
             Sessions = [ApprovableSession],
-            Exp = 20,
+            YearsOfExperience = 20,
             Browser = new WebBrowser(Name: WebBrowser.BrowserName.GoogleChrome, MajorVersion: 27)
         };
 
@@ -97,7 +97,7 @@ namespace GK.Tests
                 Sessions = [ApprovableSession],
                 Certifications = [],
                 Browser = new WebBrowser(Name: WebBrowser.BrowserName.GoogleChrome, MajorVersion: 27),
-                Exp = experience
+                YearsOfExperience = experience
             };
             s.Register(repository: repository);
 

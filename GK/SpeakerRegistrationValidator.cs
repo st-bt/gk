@@ -19,7 +19,7 @@ namespace GK.Talks
         {
             var domain = speaker.Email.Split('@').Last();
             return
-                speaker.Exp > 10 ||
+                speaker.YearsOfExperience > 10 ||
                 speaker.HasBlog ||
                 speaker.Certifications.Count() > 3 ||
                 AcceptedEmployers.Contains(speaker.Employer) ||

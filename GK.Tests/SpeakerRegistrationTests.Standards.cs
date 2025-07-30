@@ -17,7 +17,7 @@ namespace GK.Tests
                 LastName = "lastName",
                 Email = email,
                 Browser = browser,
-                Exp = fixture.Experience,
+                YearsOfExperience = fixture.Experience,
                 HasBlog = fixture.HasBlog,
                 Certifications = fixture.Certifications,
                 Employer = fixture.Employer,
