@@ -95,8 +95,8 @@ For the validation scenarios that require a greater range / matrix of inputs for
 - [ ] Separate model, registration fee and persistence concerns
   - [ ] Use a request object that encapsulates the modifyable values for the model
   - [ ] Validate the request model in isolation
-    - [ ] Reduce conditional nesting
-    - [ ] Use more concise `string.IsNullOrEmpty` methods
+    - [x] Reduce conditional nesting
+    - [x] Use more concise `string.IsNullOrEmpty` methods
 
 - [ ] Registration Fee
   - [ ] Decouple into reusable component and unit test. Probably doesn't need to be abstracted at this point since there's only one obvious implementation so a static instance will suffice.
