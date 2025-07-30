@@ -81,38 +81,36 @@ namespace GK.Talks
 				return new RegisterResponse(RegisterError.SpeakerDoesNotMeetStandards);
 			}
 
-            if (Sessions.Count() != 0)
-            {
-                foreach (var session in Sessions)
-                {
-                    //foreach (var tech in nt)
-                    //{
-                    //    if (session.Title.Contains(tech))
-                    //    {
-                    //        session.Approved = true;
-                    //        break;
-                    //    }
-                    //}
-
-                    foreach (var tech in OldTechnology)
-                    {
-                        if (session.Title.Contains(tech) || session.Description.Contains(tech))
-                        {
-                            appr = false;
-                            session.Approved = false;
-                            break;
-                        }
-                        else
-                        {
-                            session.Approved = true;
-                            appr = true;
-                        }
-                    }
-                }
-            }
-            else
+            if (Sessions.Count() == 0)
             {
                 return new RegisterResponse(RegisterError.NoSessionsProvided);
+            }
+
+            foreach (var session in Sessions)
+            {
+                //foreach (var tech in nt)
+                //{
+                //    if (session.Title.Contains(tech))
+                //    {
+                //        session.Approved = true;
+                //        break;
+                //    }
+                //}
+
+                foreach (var tech in OldTechnology)
+                {
+                    if (session.Title.Contains(tech) || session.Description.Contains(tech))
+                    {
+                        appr = false;
+                        session.Approved = false;
+                        break;
+                    }
+                    else
+                    {
+                        session.Approved = true;
+                        appr = true;
+                    }
+                }
             }
 
             if (appr)
