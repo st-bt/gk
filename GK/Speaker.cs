@@ -109,16 +109,7 @@ namespace GK.Talks
 
             //if we got this far, the speaker is approved
             //let's go ahead and register him/her now.
-            //First, let's calculate the registration fee.
-            //More experienced speakers pay a lower fee.
-            RegistrationFee = Exp switch
-            {
-                <= 1 => 500,
-                <= 3 => 250,
-                <= 5 => 100,
-                <= 9 => 50,
-                _ => 0
-            };
+            RegistrationFee = new RegistrationFeeCalculator().CalculateFee(Exp);
 
             //Now, save the speaker and sessions to the db.
             var speakerId = repository.SaveSpeaker(this);
