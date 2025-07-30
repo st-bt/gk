@@ -20,9 +20,7 @@ namespace GK.Tests
                 Certifications = [],
                 Browser = new WebBrowser(Name: WebBrowser.BrowserName.GoogleChrome, MajorVersion: 27)
             };
-            var response = s.Register(
-                repository: new FakeRepository(),
-                email: s.Email);
+            var response = s.Register(repository: new FakeRepository());
 
             Assert.Equal(expected, response.Error);
             Assert.Empty(repository);

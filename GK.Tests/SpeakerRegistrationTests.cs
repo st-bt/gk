@@ -16,6 +16,7 @@ namespace GK.Tests
         {
             FirstName = "firstName",
             LastName = "lastName",
+            Email = "test@example.org",
             Sessions = [ApprovableSession],
             Exp = 20,
             Browser = new WebBrowser(Name: WebBrowser.BrowserName.GoogleChrome, MajorVersion: 27)
@@ -25,10 +26,9 @@ namespace GK.Tests
         public void SuccessfulRegistration()
         {
             var repository = new FakeRepository();
-            var response = s_validSpeaker.Register(
-                repository: repository,
-                email: "test@example.org");
+            var response = s_validSpeaker.Register(repository: repository);
 
+            Assert.Null(response.Error);
             Assert.True(
                 repository.ContainsKey(response.SpeakerId),
                 userMessage: "The test double models the unique ID as the key");
@@ -49,9 +49,7 @@ namespace GK.Tests
                 LastName = lastName,
                 Browser = s_validSpeaker.Browser
             };
-            var response = s.Register(
-                repository: repository,
-                email: "test@example.org");
+            var response = s.Register(repository: repository);
 
             Assert.Equal(expected, response.Error);
             Assert.Empty(repository);
@@ -70,9 +68,7 @@ namespace GK.Tests
                 Email = email,
                 Browser = s_validSpeaker.Browser
             };
-            var response = s.Register(
-                repository: new FakeRepository(),
-                email: s.Email);
+            var response = s.Register(repository: new FakeRepository());
 
             Assert.Equal(expected, response.Error);
             Assert.Empty(repository);
@@ -103,9 +99,7 @@ namespace GK.Tests
                 Browser = new WebBrowser(Name: WebBrowser.BrowserName.GoogleChrome, MajorVersion: 27),
                 Exp = experience
             };
-            s.Register(
-                repository: repository,
-                email: s.Email);
+            s.Register(repository: repository);
 
             Assert.Equal(expected, s.RegistrationFee);
         }

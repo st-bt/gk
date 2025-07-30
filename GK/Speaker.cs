@@ -54,9 +54,9 @@ namespace GK.Talks
             }
         }
 
-        private bool SpeakerMeetsStandards(string emailAddress)
+        private bool SpeakerMeetsStandards()
         {
-            var domain = emailAddress.Split('@').Last();
+            var domain = Email.Split('@').Last();
             return
                 Exp > 10 ||
                 HasBlog ||
@@ -72,9 +72,8 @@ namespace GK.Talks
 		/// Register a speaker
 		/// </summary>
         /// <param name="repository">The implementation of <paramref name="repository"/> for persisting the speaker</param>
-        /// <param name="email">The speaker's email address</param>
 		/// <returns>Returns the unique ID for the speaker as determined by <paramref name="repository"/>.</returns>
-		public RegisterResponse Register(IRepository repository, string email)
+		public RegisterResponse Register(IRepository repository)
 		{
 			if (string.IsNullOrEmpty(FirstName))
 			{
@@ -86,12 +85,12 @@ namespace GK.Talks
 				return new RegisterResponse(RegisterError.LastNameRequired);
 			}
 
-			if (string.IsNullOrEmpty(email))
+			if (string.IsNullOrEmpty(Email))
 			{
 				return new RegisterResponse(RegisterError.EmailRequired);
 			}
 
-			if (!SpeakerMeetsStandards(email))
+			if (!SpeakerMeetsStandards())
 			{
 				return new RegisterResponse(RegisterError.SpeakerDoesNotMeetStandards);
 			}

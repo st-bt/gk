@@ -23,9 +23,7 @@ namespace GK.Tests
                 Employer = fixture.Employer,
                 Sessions = [ApprovableSession]
             };
-            var response = s.Register(
-                repository: new FakeRepository(),
-                email: s.Email);
+            var response = s.Register(repository: new FakeRepository());
 
             Assert.Equal(expected, response.Error);
         }
