@@ -44,7 +44,6 @@ namespace GK.Talks
 		{
 			// lets init some vars
 			int? speakerId = null;
-			bool good = false;
 			bool appr = false;
 			//var nt = new List<string> {"Node.js", "Docker"};
 
@@ -67,8 +66,7 @@ namespace GK.Talks
 				return new RegisterResponse(RegisterError.EmailRequired);
 			}
 
-			good = Exp > 10 || HasBlog || Certifications.Count() > 3 || AcceptedEmployers.Contains(Employer);
-
+			bool good = Exp > 10 || HasBlog || Certifications.Count() > 3 || AcceptedEmployers.Contains(Employer);
 			if (!good)
 			{
 				//need to get just the domain from the email
