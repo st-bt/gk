@@ -19,6 +19,11 @@ namespace GK.Talks
 			"Pluralsight", "Microsoft", "Google"
         ];
 
+		public static readonly string[] AcceptedEmailDomains =
+        [
+			"aol.com", "prodigy.com", "compuserve.com"
+        ];
+
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string Email { get; set; }
@@ -46,7 +51,6 @@ namespace GK.Talks
 
 			//DEFECT #5274 CL 12/10/2010
 			//We weren't filtering out the prodigy domain so I added it.
-			var domains = new List<string>() { "aol.com", "prodigy.com", "compuserve.com" };
 
 			if (string.IsNullOrEmpty(FirstName))
 			{
@@ -69,7 +73,7 @@ namespace GK.Talks
                 Certifications.Count() > 3 ||
                 AcceptedEmployers.Contains(Employer) ||
                 (
-                    !domains.Contains(Email.Split('@').Last()) &&
+                    !AcceptedEmailDomains.Contains(Email.Split('@').Last()) &&
                     !(Browser.Name == WebBrowser.BrowserName.InternetExplorer && Browser.MajorVersion < 9)
                 );
 
