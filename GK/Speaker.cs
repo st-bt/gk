@@ -54,6 +54,20 @@ namespace GK.Talks
             }
         }
 
+        private bool SpeakerMeetsStandards(string emailAddress)
+        {
+            var domain = emailAddress.Split('@').Last();
+            return
+                Exp > 10 ||
+                HasBlog ||
+                Certifications.Count() > 3 ||
+                AcceptedEmployers.Contains(Employer) ||
+                (
+                    !AcceptedEmailDomains.Contains(domain) &&
+                    !(Browser.Name == WebBrowser.BrowserName.InternetExplorer && Browser.MajorVersion < 9)
+                );
+        }
+
 		/// <summary>
 		/// Register a speaker
 		/// </summary>
@@ -77,17 +91,7 @@ namespace GK.Talks
 				return new RegisterResponse(RegisterError.EmailRequired);
 			}
 
-			bool good =
-                Exp > 10 ||
-                HasBlog ||
-                Certifications.Count() > 3 ||
-                AcceptedEmployers.Contains(Employer) ||
-                (
-                    !AcceptedEmailDomains.Contains(email.Split('@').Last()) &&
-                    !(Browser.Name == WebBrowser.BrowserName.InternetExplorer && Browser.MajorVersion < 9)
-                );
-
-			if (!good)
+			if (!SpeakerMeetsStandards(email))
 			{
 				return new RegisterResponse(RegisterError.SpeakerDoesNotMeetStandards);
 			}
