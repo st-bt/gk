@@ -13,16 +13,6 @@ namespace GK.Talks
             "Cobol", "Punch Cards", "Commodore", "VBScript"
         ];
 
-		public static readonly string[] AcceptedEmployers =
-        [
-			"Pluralsight", "Microsoft", "Google"
-        ];
-
-		public static readonly string[] AcceptedEmailDomains =
-        [
-			"aol.com", "prodigy.com", "compuserve.com"
-        ];
-
 		public string FirstName { get; init; } = string.Empty;
 		public string LastName { get; init; } = string.Empty;
 		public string Email { get; init; } = string.Empty;
@@ -35,6 +25,12 @@ namespace GK.Talks
 		public int RegistrationFee { get; private set; }
 		public Session[] Sessions { get; init; } = Array.Empty<Session>();
 
+        /// <summary>
+        /// Determine which sessions are approved
+        /// </summary>
+        /// <remarks>
+        /// Mutates the internal state of this instances <see cref="Sessions"/> elements
+        /// </remarks>
         private void ApproveSessions()
         {
             foreach (var session in Sessions)
@@ -54,20 +50,6 @@ namespace GK.Talks
             }
         }
 
-        private bool SpeakerMeetsStandards()
-        {
-            var domain = Email.Split('@').Last();
-            return
-                Exp > 10 ||
-                HasBlog ||
-                Certifications.Count() > 3 ||
-                AcceptedEmployers.Contains(Employer) ||
-                (
-                    !AcceptedEmailDomains.Contains(domain) &&
-                    !(Browser.Name == WebBrowser.BrowserName.InternetExplorer && Browser.MajorVersion < 9)
-                );
-        }
-
 		/// <summary>
 		/// Register a speaker
 		/// </summary>
@@ -75,31 +57,11 @@ namespace GK.Talks
 		/// <returns>Returns the unique ID for the speaker as determined by <paramref name="repository"/>.</returns>
 		public RegisterResponse Register(IRepository repository)
 		{
-			if (string.IsNullOrEmpty(FirstName))
-			{
-				return new RegisterResponse(RegisterError.FirstNameRequired);
-			}
-
-			if (string.IsNullOrEmpty(LastName))
-			{
-				return new RegisterResponse(RegisterError.LastNameRequired);
-			}
-
-			if (string.IsNullOrEmpty(Email))
-			{
-				return new RegisterResponse(RegisterError.EmailRequired);
-			}
-
-			if (!SpeakerMeetsStandards())
-			{
-				return new RegisterResponse(RegisterError.SpeakerDoesNotMeetStandards);
-			}
-
-            if (Sessions.Count() == 0)
+            var validator = new SpeakerRegistrationValidator();
+            if (!validator.Validate(this, out RegisterError? validationError))
             {
-                return new RegisterResponse(RegisterError.NoSessionsProvided);
+                return new RegisterResponse(error: validationError.Value);
             }
-
 
             ApproveSessions();
             if (Sessions.All(s => !s.Approved))
