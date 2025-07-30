@@ -60,13 +60,13 @@ namespace GK.Talks
             var validator = new SpeakerRegistrationValidator();
             if (!validator.Validate(this, out RegisterError? validationError))
             {
-                return new RegisterResponse(error: validationError.Value);
+                return RegisterResponse.Failure(error: validationError.Value);
             }
 
             ApproveSessions();
             if (Sessions.All(s => !s.Approved))
             {
-                return new RegisterResponse(RegisterError.NoSessionsApproved);
+                return RegisterResponse.Failure(RegisterError.NoSessionsApproved);
             }
 
             //if we got this far, the speaker is approved
@@ -77,7 +77,7 @@ namespace GK.Talks
             var speakerId = repository.SaveSpeaker(this);
 
 			//if we got this far, the speaker is registered.
-			return new RegisterResponse(speakerId);
+			return RegisterResponse.Success(speakerId);
 		}
 	}
 }

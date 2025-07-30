@@ -1,18 +1,31 @@
-﻿namespace GK.Talks
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace GK.Talks
 {
-    public class RegisterResponse
+    public record RegisterResponse
     {
-        public RegisterResponse(int speakerId)
+        private RegisterResponse(int speakerId)
         {
             SpeakerId = speakerId;
+            IsSuccessful = true;
         }
 
-        public RegisterResponse(RegisterError error)
+        private RegisterResponse(RegisterError error)
         {
             Error = error;
+            IsSuccessful = false;
         }
 
-        public int SpeakerId { get; }
+        [MemberNotNullWhen(returnValue: true, members: nameof(SpeakerId))]
+        [MemberNotNullWhen(returnValue: false, members: nameof(Error))]
+        public bool IsSuccessful { get; }
+
+        public int? SpeakerId { get; }
+
         public RegisterError? Error { get; }
+
+        public static RegisterResponse Success(int speakerId) => new RegisterResponse(speakerId);
+
+        public static RegisterResponse Failure(RegisterError error) => new RegisterResponse(error);
     }
 }

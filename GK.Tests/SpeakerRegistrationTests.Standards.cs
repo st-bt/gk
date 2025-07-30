@@ -9,7 +9,7 @@ namespace GK.Tests
     {
         [Theory]
         [MemberData(nameof(StandardsInputData.Inputs), MemberType = typeof(StandardsInputData))]
-        public void StandardsValidation(StandardsInputData.Input fixture, string email, WebBrowser browser, RegisterError? expected)
+        public void StandardsValidation(StandardsInputData.Input fixture, string email, WebBrowser browser, RegisterResponse expected)
         {
             var s = new Speaker()
             {
@@ -23,9 +23,9 @@ namespace GK.Tests
                 Employer = fixture.Employer,
                 Sessions = [ApprovableSession]
             };
-            var response = s.Register(repository: new FakeRepository());
+            var actual = s.Register(repository: new FakeRepository());
 
-            Assert.Equal(expected, response.Error);
+            Assert.Equal(expected, actual);
         }
 
         public class StandardsInputData
@@ -42,8 +42,6 @@ namespace GK.Tests
                 MajorVersion: 10);
 
             private static readonly WebBrowser InternetExplorerUnpermissableVersion = InternetExplorerPermissableVersion with { MajorVersion = 6 };
-
-            private static readonly object? SuccessErrorResponse = null;
 
             public record Input(int Experience, bool HasBlog, string[] Certifications, string Employer)
             {
@@ -65,20 +63,20 @@ namespace GK.Tests
             public static IEnumerable<object?[]> Inputs()
             {
                 // Meets standards - doesn't meet secondard allowance but this is OK since primary standard checks are sufficient
-                yield return [ Input.Sufficient, $"test@{NotPermissableEmailDomain}", GoogleChromeBrowserVersion27,         SuccessErrorResponse ];
-                yield return [ Input.Sufficient, $"test@{NotPermissableEmailDomain}", InternetExplorerPermissableVersion,   SuccessErrorResponse ];
-                yield return [ Input.Sufficient, $"test@{PermissableEmailDomain}",    InternetExplorerUnpermissableVersion, SuccessErrorResponse ];
+                yield return [ Input.Sufficient, $"test@{NotPermissableEmailDomain}", GoogleChromeBrowserVersion27,         RegisterResponse.Success(speakerId: 1) ];
+                yield return [ Input.Sufficient, $"test@{NotPermissableEmailDomain}", InternetExplorerPermissableVersion,   RegisterResponse.Success(speakerId: 1) ];
+                yield return [ Input.Sufficient, $"test@{PermissableEmailDomain}",    InternetExplorerUnpermissableVersion, RegisterResponse.Success(speakerId: 1) ];
 
                 // Doesn't meet standards but meets the secondary allowance checks
-                yield return [ Input.Sufficient with {  Experience = 4 },                 $"test@{PermissableEmailDomain}", InternetExplorerPermissableVersion, SuccessErrorResponse ];
-                yield return [ Input.Sufficient with {  HasBlog  = false },               $"test@{PermissableEmailDomain}", InternetExplorerPermissableVersion, SuccessErrorResponse ];
-                yield return [ Input.Sufficient with {  Certifications = [] },            $"test@{PermissableEmailDomain}", InternetExplorerPermissableVersion, SuccessErrorResponse ];
-                yield return [ Input.Sufficient with {  Employer = NonStandardEmployer }, $"test@{PermissableEmailDomain}", InternetExplorerPermissableVersion, SuccessErrorResponse ];
+                yield return [ Input.Sufficient with {  Experience = 4 },                 $"test@{PermissableEmailDomain}", InternetExplorerPermissableVersion, RegisterResponse.Success(speakerId: 1)];
+                yield return [ Input.Sufficient with {  HasBlog  = false },               $"test@{PermissableEmailDomain}", InternetExplorerPermissableVersion, RegisterResponse.Success(speakerId: 1)];
+                yield return [ Input.Sufficient with {  Certifications = [] },            $"test@{PermissableEmailDomain}", InternetExplorerPermissableVersion, RegisterResponse.Success(speakerId: 1)];
+                yield return [ Input.Sufficient with {  Employer = NonStandardEmployer }, $"test@{PermissableEmailDomain}", InternetExplorerPermissableVersion, RegisterResponse.Success(speakerId: 1)];
 
                 // Doesn't meet standards or the secondary allowance checks of email and browser
-                yield return [ Input.Insufficient, $"test@{NotPermissableEmailDomain}", GoogleChromeBrowserVersion27,         RegisterError.SpeakerDoesNotMeetStandards ];
-                yield return [ Input.Insufficient, $"test@{NotPermissableEmailDomain}", InternetExplorerPermissableVersion,   RegisterError.SpeakerDoesNotMeetStandards ];
-                yield return [ Input.Insufficient, $"test@{PermissableEmailDomain}",    InternetExplorerUnpermissableVersion, RegisterError.SpeakerDoesNotMeetStandards ];
+                yield return [ Input.Insufficient, $"test@{NotPermissableEmailDomain}", GoogleChromeBrowserVersion27,         RegisterResponse.Failure(RegisterError.SpeakerDoesNotMeetStandards) ];
+                yield return [ Input.Insufficient, $"test@{NotPermissableEmailDomain}", InternetExplorerPermissableVersion,   RegisterResponse.Failure(RegisterError.SpeakerDoesNotMeetStandards) ];
+                yield return [ Input.Insufficient, $"test@{PermissableEmailDomain}",    InternetExplorerUnpermissableVersion, RegisterResponse.Failure(RegisterError.SpeakerDoesNotMeetStandards) ];
             }
         }
     }

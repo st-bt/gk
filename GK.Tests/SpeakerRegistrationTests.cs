@@ -6,8 +6,6 @@ namespace GK.Tests
 {
     public partial class SpeakerRegistrationTests
     {
-        private readonly static RegisterError? Success = null;
-
         private readonly static Session ApprovableSession = new Session(
             title: "A talk about .NET",
             description: "Overview of the .NET runtime");
@@ -28,18 +26,18 @@ namespace GK.Tests
             var repository = new FakeRepository();
             var response = s_validSpeaker.Register(repository: repository);
 
+            Assert.True(response.IsSuccessful);
             Assert.Null(response.Error);
             Assert.True(
-                repository.ContainsKey(response.SpeakerId),
+                repository.ContainsKey(response.SpeakerId.Value),
                 userMessage: "The test double models the unique ID as the key");
         }
 
-
         [Theory]
-        [InlineData(null,         null,         RegisterError.FirstNameRequired)]
-        [InlineData("",           null,         RegisterError.FirstNameRequired)]
-        [InlineData("firstName",  null,         RegisterError.LastNameRequired)]
-        [InlineData("firstName",  "",           RegisterError.LastNameRequired)]
+        [InlineData(null,         null, RegisterError.FirstNameRequired)]
+        [InlineData("",           null, RegisterError.FirstNameRequired)]
+        [InlineData("firstName",  null, RegisterError.LastNameRequired)]
+        [InlineData("firstName",  "",   RegisterError.LastNameRequired)]
         public void NameValidation(string firstName, string lastName, RegisterError expected)
         {
             var repository = new FakeRepository();
@@ -51,6 +49,7 @@ namespace GK.Tests
             };
             var response = s.Register(repository: repository);
 
+            Assert.False(response.IsSuccessful);
             Assert.Equal(expected, response.Error);
             Assert.Empty(repository);
         }
@@ -70,6 +69,7 @@ namespace GK.Tests
             };
             var response = s.Register(repository: new FakeRepository());
 
+            Assert.False(response.IsSuccessful);
             Assert.Equal(expected, response.Error);
             Assert.Empty(repository);
         }

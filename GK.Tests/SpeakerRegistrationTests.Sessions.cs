@@ -8,7 +8,7 @@ namespace GK.Tests
     {
         [Theory]
         [MemberData(nameof(SessionInputData.Inputs), MemberType = typeof(SessionInputData))]
-        public void SessionValidation(Session[] input, RegisterError? expected)
+        public void SessionValidation(Session[] input, RegisterResponse expected)
         {
             var repository = new FakeRepository();
             var s = new Speaker()
@@ -20,9 +20,9 @@ namespace GK.Tests
                 Certifications = [],
                 Browser = new WebBrowser(Name: WebBrowser.BrowserName.GoogleChrome, MajorVersion: 27)
             };
-            var response = s.Register(repository: new FakeRepository());
+            var actual = s.Register(repository: new FakeRepository());
 
-            Assert.Equal(expected, response.Error);
+            Assert.Equal(expected, actual);
             Assert.Empty(repository);
         }
 
@@ -31,7 +31,7 @@ namespace GK.Tests
             public static IEnumerable<object?[]> Inputs()
             {
                 // No session submitted
-                yield return [ Array.Empty<Session>(), RegisterError.NoSessionsProvided ];
+                yield return [ Array.Empty<Session>(), RegisterResponse.Failure(RegisterError.NoSessionsProvided) ];
 
                 // Session title contains "old tech"
                 yield return
@@ -40,7 +40,7 @@ namespace GK.Tests
                     {
                         new Session(title: "Cobol", description: "descriptive text")
                     },
-                    RegisterError.NoSessionsApproved
+                    RegisterResponse.Failure(RegisterError.NoSessionsApproved)
                 ];
 
 
@@ -51,7 +51,7 @@ namespace GK.Tests
                         // Currently this will fail because of a bug in the session approval loop - will fix in subsequent pass
                         new Session(title: "Permissable title", description: "A talk about Punch Cards")
                     },
-                    RegisterError.NoSessionsApproved
+                    RegisterResponse.Failure(RegisterError.NoSessionsApproved)
                 ];
 
                 // 1 of 2 sessions are approved
@@ -61,7 +61,7 @@ namespace GK.Tests
                         new Session(title: "Cobol", description: "descriptive text"),
                         new Session(title: "Permissable title", description: "Permissable description")
                     },
-                    Success
+                    RegisterResponse.Success(speakerId: 1)
                 ];
 
                 // All sessions are approved
@@ -71,7 +71,7 @@ namespace GK.Tests
                         new Session(title: "Permissable title #1", description: "Permissable description #1"),
                         new Session(title: "Permissable title #2", description: "Permissable description #2")
                     },
-                    Success
+                    RegisterResponse.Success(speakerId: 1)
                 ];
             }
         }
