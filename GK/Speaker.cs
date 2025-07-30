@@ -42,8 +42,6 @@ namespace GK.Talks
 		/// <returns>speakerID</returns>
 		public RegisterResponse Register(IRepository repository, string strFirstName, String strLastName, string Email, int iExp, Boolean BHasBlog, string URL, string strBrowser, string csvCertifications, String s_Emp, int iFee, string csvSess)
 		{
-			// lets init some vars
-			int? speakerId = null;
 			//var nt = new List<string> {"Node.js", "Docker"};
 
 			//DEFECT #5274 CL 12/10/2010
@@ -113,31 +111,29 @@ namespace GK.Talks
                 }
             }
 
-            if (appr)
-            {
-                //if we got this far, the speaker is approved
-                //let's go ahead and register him/her now.
-                //First, let's calculate the registration fee.
-                //More experienced speakers pay a lower fee.
-                RegistrationFee = Exp switch
-                {
-                    <= 1 => 500,
-                    <= 3 => 250,
-                    <= 5 => 100,
-                    <= 9 => 50,
-                    _ => 0
-                };
-
-                //Now, save the speaker and sessions to the db.
-                speakerId = repository.SaveSpeaker(this);
-            }
-            else
+            if (!appr)
             {
                 return new RegisterResponse(RegisterError.NoSessionsApproved);
             }
 
+            //if we got this far, the speaker is approved
+            //let's go ahead and register him/her now.
+            //First, let's calculate the registration fee.
+            //More experienced speakers pay a lower fee.
+            RegistrationFee = Exp switch
+            {
+                <= 1 => 500,
+                <= 3 => 250,
+                <= 5 => 100,
+                <= 9 => 50,
+                _ => 0
+            };
+
+            //Now, save the speaker and sessions to the db.
+            var speakerId = repository.SaveSpeaker(this);
+
 			//if we got this far, the speaker is registered.
-			return new RegisterResponse((int)speakerId);
+			return new RegisterResponse(speakerId);
 		}
 	}
 }
