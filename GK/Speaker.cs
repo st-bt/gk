@@ -119,27 +119,14 @@ namespace GK.Talks
                 //let's go ahead and register him/her now.
                 //First, let's calculate the registration fee.
                 //More experienced speakers pay a lower fee.
-                if (Exp <= 1)
+                RegistrationFee = Exp switch
                 {
-                    RegistrationFee = 500;
-                }
-                else if (Exp >= 2 && Exp <= 3)
-                {
-                    RegistrationFee = 250;
-                }
-                else if (Exp >= 4 && Exp <= 5)
-                {
-                    RegistrationFee = 100;
-                }
-                else if (Exp >= 6 && Exp <= 9)
-                {
-                    RegistrationFee = 50;
-                }
-                else
-                {
-                    RegistrationFee = 0;
-                }
-
+                    <= 1 => 500,
+                    <= 3 => 250,
+                    <= 5 => 100,
+                    <= 9 => 50,
+                    _ => 0
+                };
 
                 //Now, save the speaker and sessions to the db.
                 speakerId = repository.SaveSpeaker(this);
