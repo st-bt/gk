@@ -44,7 +44,6 @@ namespace GK.Talks
 		{
 			// lets init some vars
 			int? speakerId = null;
-			bool appr = false;
 			//var nt = new List<string> {"Node.js", "Docker"};
 
 			//DEFECT #5274 CL 12/10/2010
@@ -86,6 +85,7 @@ namespace GK.Talks
                 return new RegisterResponse(RegisterError.NoSessionsProvided);
             }
 
+			bool appr = false;
             foreach (var session in Sessions)
             {
                 //foreach (var tech in nt)
