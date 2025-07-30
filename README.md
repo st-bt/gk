@@ -90,7 +90,7 @@ For the validation scenarios that require a greater range / matrix of inputs for
 
 ## 3. Next steps
 
-- [ ] Fix approval bug which will mean all tests are passing
+- [x] Fix approval bug which will mean all tests are passing
 
 - [ ] Separate model, registration fee and persistence concerns
   - [ ] Use a request object that encapsulates the modifyable values for the model

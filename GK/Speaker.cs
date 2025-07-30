@@ -84,6 +84,7 @@ namespace GK.Talks
 									{
 										if (session.Title.Contains(tech) || session.Description.Contains(tech))
 										{
+											appr = false;
 											session.Approved = false;
 											break;
 										}
