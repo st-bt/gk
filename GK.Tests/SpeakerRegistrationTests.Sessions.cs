@@ -56,10 +56,22 @@ namespace GK.Tests
                     RegisterError.NoSessionsApproved
                 ];
 
+                // 1 of 2 sessions are approved
                 yield return [
                     new []
                     {
+                        new Session(title: "Cobol", description: "descriptive text"),
                         new Session(title: "Permissable title", description: "Permissable description")
+                    },
+                    Success
+                ];
+
+                // All sessions are approved
+                yield return [
+                    new []
+                    {
+                        new Session(title: "Permissable title #1", description: "Permissable description #1"),
+                        new Session(title: "Permissable title #2", description: "Permissable description #2")
                     },
                     Success
                 ];

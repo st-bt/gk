@@ -16,7 +16,7 @@
 ### Request validation
 
 - Must specify at least 1 session
-  - All sessions must be approved (see below notes on approval rules)
+  - At least 1 session must be approved (see below notes on approval rules)
 - Speaker must meet a standard wherein they must meet at least one of the criterion listed below. However, a speaker that doesn't meet the standard can be permitted if their email address domain is not explicitly flagged and their browser is anything but Internet Explorer Version 8 or below.
     - More than "10" experience
     - Has a blog

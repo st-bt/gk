@@ -35,6 +35,25 @@ namespace GK.Talks
 		public int RegistrationFee { get; set; }
 		public List<Session> Sessions { get; set; }
 
+        private void ApproveSessions()
+        {
+            foreach (var session in Sessions)
+            {
+                foreach (var tech in OldTechnology)
+                {
+                    if (session.Title.Contains(tech) || session.Description.Contains(tech))
+                    {
+                        session.Approved = false;
+                        break;
+                    }
+                    else
+                    {
+                        session.Approved = true;
+                    }
+                }
+            }
+        }
+
 		/// <summary>
 		/// Register a speaker
 		/// </summary>
@@ -78,26 +97,9 @@ namespace GK.Talks
                 return new RegisterResponse(RegisterError.NoSessionsProvided);
             }
 
-			bool appr = false;
-            foreach (var session in Sessions)
-            {
-                foreach (var tech in OldTechnology)
-                {
-                    if (session.Title.Contains(tech) || session.Description.Contains(tech))
-                    {
-                        appr = false;
-                        session.Approved = false;
-                        break;
-                    }
-                    else
-                    {
-                        session.Approved = true;
-                        appr = true;
-                    }
-                }
-            }
 
-            if (!appr)
+            ApproveSessions();
+            if (Sessions.All(s => !s.Approved))
             {
                 return new RegisterResponse(RegisterError.NoSessionsApproved);
             }
