@@ -25,7 +25,7 @@ namespace GK.Tests
             };
             var response = s.Register(
                 repository: new FakeRepository(),
-                Email: s.Email);
+                email: s.Email);
 
             Assert.Equal(expected, response.Error);
         }

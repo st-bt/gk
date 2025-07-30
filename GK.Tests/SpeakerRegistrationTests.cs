@@ -26,7 +26,7 @@ namespace GK.Tests
             var repository = new FakeRepository();
             var response = s_validSpeaker.Register(
                 repository: repository,
-                Email: "test@example.org");
+                email: "test@example.org");
 
             Assert.True(
                 repository.ContainsKey(response.SpeakerId),
@@ -49,7 +49,7 @@ namespace GK.Tests
             };
             var response = s.Register(
                 repository: repository,
-                Email: "test@example.org");
+                email: "test@example.org");
 
             Assert.Equal(expected, response.Error);
             Assert.Empty(repository);
@@ -69,7 +69,7 @@ namespace GK.Tests
             };
             var response = s.Register(
                 repository: new FakeRepository(),
-                Email: s.Email);
+                email: s.Email);
 
             Assert.Equal(expected, response.Error);
             Assert.Empty(repository);
@@ -102,7 +102,7 @@ namespace GK.Tests
             };
             s.Register(
                 repository: repository,
-                Email: s.Email);
+                email: s.Email);
 
             Assert.Equal(expected, s.RegistrationFee);
         }

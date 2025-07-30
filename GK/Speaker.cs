@@ -39,9 +39,9 @@ namespace GK.Talks
 		/// Register a speaker
 		/// </summary>
         /// <param name="repository">The implementation of <paramref name="repository"/> for persisting the speaker</param>
-        /// <param name="Email">The speaker's email address</param>
+        /// <param name="email">The speaker's email address</param>
 		/// <returns>Returns the unique ID for the speaker as determined by <paramref name="repository"/>.</returns>
-		public RegisterResponse Register(IRepository repository, string Email)
+		public RegisterResponse Register(IRepository repository, string email)
 		{
 			if (string.IsNullOrEmpty(FirstName))
 			{
@@ -53,7 +53,7 @@ namespace GK.Talks
 				return new RegisterResponse(RegisterError.LastNameRequired);
 			}
 
-			if (string.IsNullOrEmpty(Email))
+			if (string.IsNullOrEmpty(email))
 			{
 				return new RegisterResponse(RegisterError.EmailRequired);
 			}
@@ -64,7 +64,7 @@ namespace GK.Talks
                 Certifications.Count() > 3 ||
                 AcceptedEmployers.Contains(Employer) ||
                 (
-                    !AcceptedEmailDomains.Contains(Email.Split('@').Last()) &&
+                    !AcceptedEmailDomains.Contains(email.Split('@').Last()) &&
                     !(Browser.Name == WebBrowser.BrowserName.InternetExplorer && Browser.MajorVersion < 9)
                 );
 
