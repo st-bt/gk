@@ -78,82 +78,80 @@ namespace GK.Talks
 				}
 			}
 
-			if (good)
-			{
-				if (Sessions.Count() != 0)
-				{
-					foreach (var session in Sessions)
-					{
-						//foreach (var tech in nt)
-						//{
-						//    if (session.Title.Contains(tech))
-						//    {
-						//        session.Approved = true;
-						//        break;
-						//    }
-						//}
-
-						foreach (var tech in OldTechnology)
-						{
-							if (session.Title.Contains(tech) || session.Description.Contains(tech))
-							{
-								appr = false;
-								session.Approved = false;
-								break;
-							}
-							else
-							{
-								session.Approved = true;
-								appr = true;
-							}
-						}
-					}
-				}
-				else
-				{
-					return new RegisterResponse(RegisterError.NoSessionsProvided);
-				}
-
-				if (appr)
-				{
-					//if we got this far, the speaker is approved
-					//let's go ahead and register him/her now.
-					//First, let's calculate the registration fee.
-					//More experienced speakers pay a lower fee.
-					if (Exp <= 1)
-					{
-						RegistrationFee = 500;
-					}
-					else if (Exp >= 2 && Exp <= 3)
-					{
-						RegistrationFee = 250;
-					}
-					else if (Exp >= 4 && Exp <= 5)
-					{
-						RegistrationFee = 100;
-					}
-					else if (Exp >= 6 && Exp <= 9)
-					{
-						RegistrationFee = 50;
-					}
-					else
-					{
-						RegistrationFee = 0;
-					}
-
-
-					//Now, save the speaker and sessions to the db.
-                    speakerId = repository.SaveSpeaker(this);
-				}
-				else
-				{
-					return new RegisterResponse(RegisterError.NoSessionsApproved);
-				}
-			}
-			else
+			if (!good)
 			{
 				return new RegisterResponse(RegisterError.SpeakerDoesNotMeetStandards);
 			}
+
+            if (Sessions.Count() != 0)
+            {
+                foreach (var session in Sessions)
+                {
+                    //foreach (var tech in nt)
+                    //{
+                    //    if (session.Title.Contains(tech))
+                    //    {
+                    //        session.Approved = true;
+                    //        break;
+                    //    }
+                    //}
+
+                    foreach (var tech in OldTechnology)
+                    {
+                        if (session.Title.Contains(tech) || session.Description.Contains(tech))
+                        {
+                            appr = false;
+                            session.Approved = false;
+                            break;
+                        }
+                        else
+                        {
+                            session.Approved = true;
+                            appr = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                return new RegisterResponse(RegisterError.NoSessionsProvided);
+            }
+
+            if (appr)
+            {
+                //if we got this far, the speaker is approved
+                //let's go ahead and register him/her now.
+                //First, let's calculate the registration fee.
+                //More experienced speakers pay a lower fee.
+                if (Exp <= 1)
+                {
+                    RegistrationFee = 500;
+                }
+                else if (Exp >= 2 && Exp <= 3)
+                {
+                    RegistrationFee = 250;
+                }
+                else if (Exp >= 4 && Exp <= 5)
+                {
+                    RegistrationFee = 100;
+                }
+                else if (Exp >= 6 && Exp <= 9)
+                {
+                    RegistrationFee = 50;
+                }
+                else
+                {
+                    RegistrationFee = 0;
+                }
+
+
+                //Now, save the speaker and sessions to the db.
+                speakerId = repository.SaveSpeaker(this);
+            }
+            else
+            {
+                return new RegisterResponse(RegisterError.NoSessionsApproved);
+            }
 
 			//if we got this far, the speaker is registered.
 			return new RegisterResponse((int)speakerId);
