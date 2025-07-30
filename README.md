@@ -100,3 +100,5 @@ For the validation scenarios that require a greater range / matrix of inputs for
 
 - [ ] Registration Fee
   - [ ] Decouple into reusable component and unit test. Probably doesn't need to be abstracted at this point since there's only one obvious implementation so a static instance will suffice.
+
+- [x] Remove try/catch around the repository `SaveSpeaker()` method call

@@ -139,14 +139,7 @@ namespace GK.Talks
 
 
 					//Now, save the speaker and sessions to the db.
-					try
-					{
-						speakerId = repository.SaveSpeaker(this);
-					}
-					catch (Exception e)
-					{
-						//in case the db call fails
-					}
+                    speakerId = repository.SaveSpeaker(this);
 				}
 				else
 				{
