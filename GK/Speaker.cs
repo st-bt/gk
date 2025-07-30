@@ -66,17 +66,15 @@ namespace GK.Talks
 				return new RegisterResponse(RegisterError.EmailRequired);
 			}
 
-			bool good = Exp > 10 || HasBlog || Certifications.Count() > 3 || AcceptedEmployers.Contains(Employer);
-			if (!good)
-			{
-				//need to get just the domain from the email
-				string emailDomain = Email.Split('@').Last();
-
-				if (!domains.Contains(emailDomain) && (!(Browser.Name == WebBrowser.BrowserName.InternetExplorer && Browser.MajorVersion < 9)))
-				{
-					good = true;
-				}
-			}
+			bool good =
+                Exp > 10 ||
+                HasBlog ||
+                Certifications.Count() > 3 ||
+                AcceptedEmployers.Contains(Employer) ||
+                (
+                    !domains.Contains(Email.Split('@').Last()) &&
+                    !(Browser.Name == WebBrowser.BrowserName.InternetExplorer && Browser.MajorVersion < 9)
+                );
 
 			if (!good)
 			{
