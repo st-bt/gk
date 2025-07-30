@@ -6,7 +6,6 @@ namespace GK.Talks
 	/// <summary>
 	/// Represents a single speaker
 	/// </summary>
-	/// </summary>
 	public class Speaker
 	{
 		public static readonly string[] OldTechnology =
@@ -47,11 +46,6 @@ namespace GK.Talks
 		/// <returns>speakerID</returns>
 		public RegisterResponse Register(IRepository repository, string strFirstName, String strLastName, string Email, int iExp, Boolean BHasBlog, string URL, string strBrowser, string csvCertifications, String s_Emp, int iFee, string csvSess)
 		{
-			//var nt = new List<string> {"Node.js", "Docker"};
-
-			//DEFECT #5274 CL 12/10/2010
-			//We weren't filtering out the prodigy domain so I added it.
-
 			if (string.IsNullOrEmpty(FirstName))
 			{
 				return new RegisterResponse(RegisterError.FirstNameRequired);
@@ -90,15 +84,6 @@ namespace GK.Talks
 			bool appr = false;
             foreach (var session in Sessions)
             {
-                //foreach (var tech in nt)
-                //{
-                //    if (session.Title.Contains(tech))
-                //    {
-                //        session.Approved = true;
-                //        break;
-                //    }
-                //}
-
                 foreach (var tech in OldTechnology)
                 {
                     if (session.Title.Contains(tech) || session.Description.Contains(tech))
