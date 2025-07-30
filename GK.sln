@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GK", "GK\GK.csproj", "{0A1DB49A-588A-407F-B421-EE2E6C4285B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GK.Tests", "GK.Tests\GK.Tests.csproj", "{C4F2F5EE-8D6E-4606-A18E-3D8566F24FE8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A1DB49A-588A-407F-B421-EE2E6C4285B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A1DB49A-588A-407F-B421-EE2E6C4285B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A1DB49A-588A-407F-B421-EE2E6C4285B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A1DB49A-588A-407F-B421-EE2E6C4285B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4F2F5EE-8D6E-4606-A18E-3D8566F24FE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4F2F5EE-8D6E-4606-A18E-3D8566F24FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4F2F5EE-8D6E-4606-A18E-3D8566F24FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4F2F5EE-8D6E-4606-A18E-3D8566F24FE8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5FF02323-0C07-40B3-94AB-3FC52EF97879}
+	EndGlobalSection
+EndGlobal
