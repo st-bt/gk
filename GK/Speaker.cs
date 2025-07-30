@@ -14,6 +14,11 @@ namespace GK.Talks
             "Cobol", "Punch Cards", "Commodore", "VBScript"
         ];
 
+		public static readonly string[] AcceptedEmployers =
+        [
+			"Pluralsight", "Microsoft", "Google"
+        ];
+
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string Email { get; set; }
@@ -62,10 +67,7 @@ namespace GK.Talks
 				return new RegisterResponse(RegisterError.EmailRequired);
 			}
 
-			// put list of employers in array
-			var emps = new List<string>() { "Pluralsight", "Microsoft", "Google" };
-
-			good = Exp > 10 || HasBlog || Certifications.Count() > 3 || emps.Contains(Employer);
+			good = Exp > 10 || HasBlog || Certifications.Count() > 3 || AcceptedEmployers.Contains(Employer);
 
 			if (!good)
 			{
