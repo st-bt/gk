@@ -1,6 +1,6 @@
-using GK.Talks;
+using GK.Domain.Actions.Speaker.RegistrationFeeCalculation;
 
-namespace GK.Tests
+namespace GK.Tests.Domain.Actions.Speaker.RegistrationFeeCalculation
 {
     public class RegistrationFeeCalculatorTests
     {

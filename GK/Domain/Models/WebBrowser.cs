@@ -1,4 +1,4 @@
-﻿namespace GK.Models
+﻿namespace GK.Domain.Models
 {
     public record WebBrowser(string Name, int MajorVersion)
     {

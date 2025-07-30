@@ -1,14 +1,16 @@
 ﻿using GK.Abstractions;
-using GK.Models;
+using GK.Domain.Actions.Speaker.Register;
+using GK.Domain.Actions.Speaker.RegistrationFeeCalculation;
+using GK.Domain.Validation;
 
-namespace GK.Talks
+namespace GK.Domain.Models.Speaker
 {
 	/// <summary>
 	/// Represents a single speaker
 	/// </summary>
 	public class Speaker
 	{
-		public static readonly string[] OldTechnology =
+		private static readonly string[] OldTechnology =
         [
             "Cobol", "Punch Cards", "Commodore", "VBScript"
         ];

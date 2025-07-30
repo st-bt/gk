@@ -1,6 +1,6 @@
-using GK.Talks;
+using GK.Domain.Actions.Speaker.Register;
 
-namespace GK.Tests
+namespace GK.Tests.Domain.Actions.Speaker.Register
 {
     public class RegisterResponseTests
     {

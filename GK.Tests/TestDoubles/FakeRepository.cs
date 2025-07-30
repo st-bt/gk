@@ -1,5 +1,5 @@
 using GK.Abstractions;
-using GK.Talks;
+using GK.Domain.Models.Speaker;
 
 namespace GK.Tests.TestDoubles
 {

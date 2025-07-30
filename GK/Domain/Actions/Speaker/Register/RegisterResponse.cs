@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace GK.Talks
+namespace GK.Domain.Actions.Speaker.Register
 {
     public record RegisterResponse
     {

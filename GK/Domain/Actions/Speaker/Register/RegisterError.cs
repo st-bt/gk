@@ -1,4 +1,4 @@
-﻿namespace GK.Talks
+﻿namespace GK.Domain.Actions.Speaker.Register
 {
     public enum RegisterError
     {

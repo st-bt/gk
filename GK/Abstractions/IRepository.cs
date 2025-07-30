@@ -1,4 +1,4 @@
-﻿using GK.Talks;
+﻿using GK.Domain.Models.Speaker;
 
 namespace GK.Abstractions
 {

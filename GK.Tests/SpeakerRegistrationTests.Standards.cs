@@ -1,5 +1,6 @@
-﻿using GK.Models;
-using GK.Talks;
+﻿using GK.Domain.Actions.Speaker.Register;
+using GK.Domain.Models;
+using GK.Domain.Models.Speaker;
 using GK.Tests.TestDoubles;
 using System.Runtime.CompilerServices;
 

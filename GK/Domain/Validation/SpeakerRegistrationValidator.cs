@@ -1,7 +1,9 @@
-﻿using GK.Models;
+﻿using GK.Domain.Actions.Speaker.Register;
+using GK.Domain.Models;
+using GK.Domain.Models.Speaker;
 using System.Diagnostics.CodeAnalysis;
 
-namespace GK.Talks
+namespace GK.Domain.Validation
 {
     public class SpeakerRegistrationValidator
     {
@@ -23,10 +25,10 @@ namespace GK.Talks
                 speaker.HasBlog ||
                 speaker.Certifications.Count() > 3 ||
                 AcceptedEmployers.Contains(speaker.Employer) ||
-                (
+                
                     !AcceptedEmailDomains.Contains(domain) &&
                     !(speaker.Browser.Name == WebBrowser.BrowserName.InternetExplorer && speaker.Browser.MajorVersion < 9)
-                );
+                ;
         }
 
         public bool Validate(
