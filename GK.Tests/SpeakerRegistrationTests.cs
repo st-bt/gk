@@ -17,7 +17,8 @@ namespace GK.Tests
             FirstName = "firstName",
             LastName = "lastName",
             Sessions = [ApprovableSession],
-            Exp = 20
+            Exp = 20,
+            Browser = new WebBrowser(Name: WebBrowser.BrowserName.GoogleChrome, MajorVersion: 27)
         };
 
         [Fact]
@@ -45,7 +46,8 @@ namespace GK.Tests
             var s = new Speaker()
             {
                 FirstName = firstName,
-                LastName = lastName
+                LastName = lastName,
+                Browser = s_validSpeaker.Browser
             };
             var response = s.Register(
                 repository: repository,
@@ -65,7 +67,8 @@ namespace GK.Tests
             {
                 FirstName = "firstName",
                 LastName = "lastName",
-                Email = email
+                Email = email,
+                Browser = s_validSpeaker.Browser
             };
             var response = s.Register(
                 repository: new FakeRepository(),

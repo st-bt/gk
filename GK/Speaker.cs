@@ -23,17 +23,17 @@ namespace GK.Talks
 			"aol.com", "prodigy.com", "compuserve.com"
         ];
 
-		public string FirstName { get; set; }
-		public string LastName { get; set; }
-		public string Email { get; set; }
-		public int? Exp { get; set; }
-		public bool HasBlog { get; set; }
-		public string BlogURL { get; set; }
-		public WebBrowser Browser { get; set; }
-		public List<string> Certifications { get; set; }
-		public string Employer { get; set; }
-		public int RegistrationFee { get; set; }
-		public List<Session> Sessions { get; set; }
+		public string FirstName { get; init; } = string.Empty;
+		public string LastName { get; init; } = string.Empty;
+		public string Email { get; init; } = string.Empty;
+		public int Exp { get; init; }
+		public bool HasBlog { get; init; }
+		public string BlogURL { get; init; } = string.Empty;
+		public required WebBrowser Browser { get; init; }
+		public List<string> Certifications { get; init; } = new List<string>();
+		public string Employer { get; init; } = string.Empty;
+		public int RegistrationFee { get; private set; }
+		public List<Session> Sessions { get; init; } = new List<Session>();
 
         private void ApproveSessions()
         {
