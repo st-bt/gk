@@ -9,6 +9,11 @@ namespace GK.Talks
 	/// </summary>
 	public class Speaker
 	{
+		public static readonly string[] OldTechnology =
+        [
+            "Cobol", "Punch Cards", "Commodore", "VBScript"
+        ];
+
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string Email { get; set; }
@@ -37,7 +42,6 @@ namespace GK.Talks
 			bool good = false;
 			bool appr = false;
 			//var nt = new List<string> {"Node.js", "Docker"};
-			var ot = new List<string>() { "Cobol", "Punch Cards", "Commodore", "VBScript" };
 
 			//DEFECT #5274 CL 12/10/2010
 			//We weren't filtering out the prodigy domain so I added it.
@@ -89,7 +93,7 @@ namespace GK.Talks
 						//    }
 						//}
 
-						foreach (var tech in ot)
+						foreach (var tech in OldTechnology)
 						{
 							if (session.Title.Contains(tech) || session.Description.Contains(tech))
 							{
