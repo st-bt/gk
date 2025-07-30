@@ -26,17 +26,7 @@ namespace GK.Tests
             var repository = new FakeRepository();
             var response = s_validSpeaker.Register(
                 repository: repository,
-                strFirstName: string.Empty,
-                strLastName: string.Empty,
-                Email: "test@example.org",
-                iExp: 0,
-                BHasBlog: false,
-                URL: string.Empty,
-                strBrowser: string.Empty,
-                csvCertifications: string.Empty,
-                s_Emp: string.Empty,
-                iFee: default,
-                csvSess: string.Empty);
+                Email: "test@example.org");
 
             Assert.True(
                 repository.ContainsKey(response.SpeakerId),
@@ -59,17 +49,7 @@ namespace GK.Tests
             };
             var response = s.Register(
                 repository: repository,
-                strFirstName: firstName,
-                strLastName: lastName,
-                Email: "test@example.org",
-                iExp: 0,
-                BHasBlog: false,
-                URL: string.Empty,
-                strBrowser: string.Empty,
-                csvCertifications: string.Empty,
-                s_Emp: string.Empty,
-                iFee: default,
-                csvSess: string.Empty);
+                Email: "test@example.org");
 
             Assert.Equal(expected, response.Error);
             Assert.Empty(repository);
@@ -89,17 +69,7 @@ namespace GK.Tests
             };
             var response = s.Register(
                 repository: new FakeRepository(),
-                strFirstName: s.FirstName,
-                strLastName: s.LastName,
-                Email: s.Email,
-                iExp: 0,
-                BHasBlog: false,
-                URL: string.Empty,
-                strBrowser: string.Empty,
-                csvCertifications: string.Empty,
-                s_Emp: string.Empty,
-                iFee: default,
-                csvSess: string.Empty);
+                Email: s.Email);
 
             Assert.Equal(expected, response.Error);
             Assert.Empty(repository);
@@ -132,17 +102,7 @@ namespace GK.Tests
             };
             s.Register(
                 repository: repository,
-                strFirstName: s.FirstName,
-                strLastName: s.LastName,
-                Email: s.Email,
-                iExp: s.Exp.Value,
-                BHasBlog: false,
-                URL: string.Empty,
-                strBrowser: string.Empty,
-                csvCertifications: string.Empty,
-                s_Emp: string.Empty,
-                iFee: default,
-                csvSess: string.Empty);
+                Email: s.Email);
 
             Assert.Equal(expected, s.RegistrationFee);
         }

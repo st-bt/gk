@@ -25,17 +25,7 @@ namespace GK.Tests
             };
             var response = s.Register(
                 repository: new FakeRepository(),
-                strFirstName: s.FirstName,
-                strLastName: s.LastName,
-                Email: s.Email,
-                iExp: fixture.Experience,
-                BHasBlog: fixture.HasBlog,
-                URL: string.Empty,
-                strBrowser: browser.Name,
-                csvCertifications: string.Empty,
-                s_Emp: fixture.Employer,
-                iFee: default,
-                csvSess: string.Empty);
+                Email: s.Email);
 
             Assert.Equal(expected, response.Error);
         }

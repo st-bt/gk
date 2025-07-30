@@ -37,14 +37,11 @@ namespace GK.Talks
 
 		/// <summary>
 		/// Register a speaker
-		/// Prams 
-		/// strFirstName speakers first name
-		///	strLastName ^^^ last name
-		/// Email the email
-		/// blogs etc.....
 		/// </summary>
-		/// <returns>speakerID</returns>
-		public RegisterResponse Register(IRepository repository, string strFirstName, String strLastName, string Email, int iExp, Boolean BHasBlog, string URL, string strBrowser, string csvCertifications, String s_Emp, int iFee, string csvSess)
+        /// <param name="repository">The implementation of <paramref name="repository"/> for persisting the speaker</param>
+        /// <param name="Email">The speaker's email address</param>
+		/// <returns>Returns the unique ID for the speaker as determined by <paramref name="repository"/>.</returns>
+		public RegisterResponse Register(IRepository repository, string Email)
 		{
 			if (string.IsNullOrEmpty(FirstName))
 			{

@@ -22,17 +22,7 @@ namespace GK.Tests
             };
             var response = s.Register(
                 repository: new FakeRepository(),
-                strFirstName: s.FirstName,
-                strLastName: s.LastName,
-                Email: s.Email,
-                iExp: 0,
-                BHasBlog: false,
-                URL: string.Empty,
-                strBrowser: string.Empty,
-                csvCertifications: string.Empty,
-                s_Emp: string.Empty,
-                iFee: default,
-                csvSess: string.Empty);
+                Email: s.Email);
 
             Assert.Equal(expected, response.Error);
             Assert.Empty(repository);
