@@ -1,5 +1,5 @@
-﻿using GK.Domain.Actions.Speaker.Register;
-using GK.Domain.Models;
+﻿using GK.Abstractions;
+using GK.Domain.Actions.Speaker.Register;
 using GK.Domain.Models.Speaker;
 using System.Diagnostics.CodeAnalysis;
 
@@ -7,29 +7,8 @@ namespace GK.Domain.Validation
 {
     public class SpeakerRegistrationValidator
     {
-		private static readonly string[] AcceptedEmployers =
-        [
-			"Pluralsight", "Microsoft", "Google"
-        ];
-
-		private static readonly string[] AcceptedEmailDomains =
-        [
-			"aol.com", "prodigy.com", "compuserve.com"
-        ];
-
-        private bool SpeakerMeetsStandards(Speaker speaker)
-        {
-            var domain = speaker.Email.Split('@').Last();
-            return
-                speaker.YearsOfExperience > 10 ||
-                speaker.HasBlog ||
-                speaker.Certifications.Count() > 3 ||
-                AcceptedEmployers.Contains(speaker.Employer) ||
-                
-                    !AcceptedEmailDomains.Contains(domain) &&
-                    !(speaker.Browser.Name == WebBrowser.BrowserName.InternetExplorer && speaker.Browser.MajorVersion < 9)
-                ;
-        }
+        private static readonly ISpecification<Speaker> _minimumSpeakerStandardsSpecification =
+            new SpeakerMinimumStandardsSpecification();
 
         public bool Validate(
             Speaker speaker,
@@ -54,7 +33,7 @@ namespace GK.Domain.Validation
                 return false;
             }
 
-            if (!SpeakerMeetsStandards(speaker))
+            if (!_minimumSpeakerStandardsSpecification.IsSatisifiedBy(speaker))
             {
                 validationError = RegisterError.SpeakerDoesNotMeetStandards;
                 return false;
