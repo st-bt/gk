@@ -15,6 +15,8 @@ namespace GK.Domain.Models.Speaker
             "Cobol", "Punch Cards", "Commodore", "VBScript"
         ];
 
+        private static readonly RegistrationFeeCalculator s_registrationFeeCalculator = new RegistrationFeeCalculator();
+
 		public string FirstName { get; init; } = string.Empty;
 		public string LastName { get; init; } = string.Empty;
 		public string Email { get; init; } = string.Empty;
@@ -73,7 +75,7 @@ namespace GK.Domain.Models.Speaker
 
             //if we got this far, the speaker is approved
             //let's go ahead and register him/her now.
-            RegistrationFee = new RegistrationFeeCalculator().CalculateFee(YearsOfExperience);
+            RegistrationFee = s_registrationFeeCalculator.CalculateFee(YearsOfExperience);
 
             //Now, save the speaker and sessions to the db.
             var speakerId = repository.SaveSpeaker(this);
