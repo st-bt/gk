@@ -102,3 +102,13 @@ For the validation scenarios that require a greater range / matrix of inputs for
   - [ ] Decouple into reusable component and unit test. Probably doesn't need to be abstracted at this point since there's only one obvious implementation so a static instance will suffice.
 
 - [x] Remove try/catch around the repository `SaveSpeaker()` method call
+
+
+### Code coverage
+```
+# Requires "coverlet.collector" nuget package
+dotnet test --collect "XPlat Code Coverage"
+
+# Rquires: dotnet tool install -g dotnet-reportgenerator-globaltool
+reportgenerator -reports:".\TestResults\1c51f5b8-21c3-454a-ad9a-0004118754a6\coverage.cobertura.xml" -targetdir:"coverageresults" -reporttypes:Html
+```
