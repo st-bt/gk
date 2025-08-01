@@ -5,29 +5,29 @@ using GK.Domain.Validation;
 
 namespace GK.Domain.Models.Speaker
 {
-	/// <summary>
-	/// Represents a single speaker
-	/// </summary>
-	public class Speaker
-	{
-		private static readonly string[] OldTechnology =
+    /// <summary>
+    /// Represents a single speaker
+    /// </summary>
+    public class Speaker
+    {
+        private static readonly string[] OldTechnology =
         [
             "Cobol", "Punch Cards", "Commodore", "VBScript"
         ];
 
         private static readonly RegistrationFeeCalculator s_registrationFeeCalculator = new RegistrationFeeCalculator();
 
-		public string FirstName { get; init; } = string.Empty;
-		public string LastName { get; init; } = string.Empty;
-		public string Email { get; init; } = string.Empty;
-		public int YearsOfExperience { get; init; }
-		public bool HasBlog { get; init; }
-		public string BlogURL { get; init; } = string.Empty;
-		public required WebBrowser Browser { get; init; }
-		public string[] Certifications { get; init; } = Array.Empty<string>();
-		public string Employer { get; init; } = string.Empty;
-		public int RegistrationFee { get; private set; }
-		public Session[] Sessions { get; init; } = Array.Empty<Session>();
+        public string FirstName { get; init; } = string.Empty;
+        public string LastName { get; init; } = string.Empty;
+        public string Email { get; init; } = string.Empty;
+        public int YearsOfExperience { get; init; }
+        public bool HasBlog { get; init; }
+        public string BlogURL { get; init; } = string.Empty;
+        public required WebBrowser Browser { get; init; }
+        public string[] Certifications { get; init; } = Array.Empty<string>();
+        public string Employer { get; init; } = string.Empty;
+        public int RegistrationFee { get; private set; }
+        public Session[] Sessions { get; init; } = Array.Empty<Session>();
 
         /// <summary>
         /// Determine which sessions are approved
@@ -54,13 +54,13 @@ namespace GK.Domain.Models.Speaker
             }
         }
 
-		/// <summary>
-		/// Register a speaker
-		/// </summary>
+        /// <summary>
+        /// Register a speaker
+        /// </summary>
         /// <param name="repository">The implementation of <paramref name="repository"/> for persisting the speaker</param>
-		/// <returns>Returns the unique ID for the speaker as determined by <paramref name="repository"/>.</returns>
-		public RegisterResponse Register(IRepository repository)
-		{
+        /// <returns>Returns the unique ID for the speaker as determined by <paramref name="repository"/>.</returns>
+        public RegisterResponse Register(IRepository repository)
+        {
             var validator = new SpeakerRegistrationValidator();
             if (!validator.Validate(this, out RegisterError? validationError))
             {
@@ -80,8 +80,8 @@ namespace GK.Domain.Models.Speaker
             //Now, save the speaker and sessions to the db.
             var speakerId = repository.SaveSpeaker(this);
 
-			//if we got this far, the speaker is registered.
-			return RegisterResponse.Success(speakerId);
-		}
-	}
+            //if we got this far, the speaker is registered.
+            return RegisterResponse.Success(speakerId);
+        }
+    }
 }
